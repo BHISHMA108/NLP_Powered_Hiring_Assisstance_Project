@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recruiter Dashboard | NLP Powered Hiring Assistance</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #4361ee;
+        --primary-dark: #3a56d4;
+        --secondary: #7209b7;
+        --light: #f8f9fa;
+        --dark: #212529;
+        --success: #4cc9f0;
+        --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+      }
+
+      body {
+        background-color: #f0f2f5;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--dark);
+        line-height: 1.6;
+      }
+
+      .navbar {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-size: 1.5rem;
+      }
+
+      .container {
+        margin-top: 30px;
+        margin-bottom: 50px;
+      }
+
+      .card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+      }
+
+      .card-header {
+        background: var(--gradient);
+        color: white;
+        border-radius: 0 !important;
+        padding: 25px 30px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+
+      .card-header h2 {
+        font-weight: 700;
+        margin-bottom: 5px;
+        position: relative;
+      }
+
+      .card-header p {
+        opacity: 0.9;
+        margin-bottom: 0;
+        position: relative;
+      }
+
+      .card-body {
+        padding: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 1.8rem;
+      }
+
+      label {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--dark);
+        display: flex;
+        align-items: center;
+      }
+
+      label i {
+        margin-right: 8px;
+        color: var(--primary);
+      }
+
+      .form-control {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 12px 15px;
+        font-size: 16px;
+        transition: all 0.3s;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+      }
+
+      textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .btn-primary {
+        background: var(--gradient);
+        border: none;
+        border-radius: 10px;
+        padding: 12px 30px;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+      }
+
+      .btn-primary i {
+        margin-right: 8px;
+      }
+
+      .btn-outline-light:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .alert {
+        border: none;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 25px;
+      }
+
+      .alert-info {
+        background-color: #e6f7ff;
+        color: #0056b3;
+        border-left: 4px solid var(--primary);
+      }
+
+      .results-section {
+        margin-top: 30px;
+      }
+
+      .results-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e9ecef;
+      }
+
+      .results-header h5 {
+        color: var(--primary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .results-header i {
+        margin-right: 10px;
+      }
+
+      .table {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .table thead {
+        background: var(--gradient);
+        color: white;
+      }
+
+      .table th {
+        border: none;
+        padding: 15px;
+        font-weight: 600;
+      }
+
+      .table td {
+        border: none;
+        padding: 15px;
+        vertical-align: middle;
+      }
+
+      .table tbody tr {
+        transition: all 0.2s;
+      }
+
+      .table tbody tr:hover {
+        background-color: rgba(67, 97, 238, 0.05);
+        transform: translateX(5px);
+      }
+
+      .table tbody tr:nth-child(1) {
+        background-color: rgba(76, 201, 240, 0.1);
+      }
+
+      .table tbody tr:nth-child(2) {
+        background-color: rgba(76, 201, 240, 0.07);
+      }
+
+      .table tbody tr:nth-child(3) {
+        background-color: rgba(76, 201, 240, 0.04);
+      }
+
+      .rank-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--gradient);
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .score-badge {
+        background: var(--gradient);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        color: #6c757d;
+        font-size: 14px;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          margin-top: 15px;
+        }
+
+        .card-body {
+          padding: 20px;
+        }
+
+        .table-responsive {
+          border-radius: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="/">
+          <i class="fas fa-robot me-2"></i>NLP Powered Hiring Assistance
+        </a>
+        <div>
+          <a href="/candidate" class="btn btn-outline-light btn-sm">
+            <i class="fas fa-user me-1"></i>Candidate Portal
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Section -->
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="card">
+            <div class="card-header text-center">
+              <h2><i class="fas fa-user-tie me-2"></i>Recruiter Dashboard</h2>
+              <p>Find the perfect candidates for your job openings</p>
+            </div>
+            <div class="card-body">
+              <form action="/matcher" method="POST" id="recruiterForm">
+                <div class="form-group">
+                  <label for="job_description"
+                    ><i class="fas fa-briefcase"></i>Enter Job
+                    Description</label
+                  >
+                  <textarea
+                    name="job_description"
+                    id="job_description"
+                    class="form-control"
+                    rows="6"
+                    placeholder="Paste your job description here..."
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-search"></i>Find Matching Resumes
+                </button>
+              </form>
+
+              {% if message %}
+              <div class="alert alert-info mt-4 text-center">
+                <i class="fas fa-info-circle me-2"></i>{{ message }}
+              </div>
+              {% endif %} {% if results %}
+              <div class="results-section">
+                <div class="results-header">
+                  <h5><i class="fas fa-trophy"></i>Top Matching Resumes</h5>
+                </div>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Rank</th>
+                        <th scope="col">Filename</th>
+                        <th scope="col">Similarity Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for r in results %}
+                      <tr>
+                        <td>
+                          <span class="rank-badge">{{ loop.index }}</span>
+                        </td>
+                        <td>
+                          <i class="fas fa-file me-2 text-primary"></i>{{
+                          r.filename }}
+                        </td>
+                        <td>
+                          <span class="score-badge">{{ r.score }}% Match</span>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="footer">
+            <p>
+              NLP Powered Hiring Assistance by Grp 22 (Uday and Shivam) &copy;
+              2025 | VIT NLP Project
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Clear form data when page is loaded (including refresh)
+      window.addEventListener("load", function () {
+        // Clear the job description textarea
+        document.getElementById("job_description").value = "";
+      });
+    </script>
+  </body>
+</html>
